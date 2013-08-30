@@ -5,37 +5,63 @@
 // =============================================================================
 
 
-// Set to true if you want to add support for IE6 and IE7
-
-$legacy_support_for_ie: false !default; // Used also in Compass
-
+// Set up boder box sizing (http://www.paulirish.com/2012/box-sizing-border-box-ftw/)
+$border_box_sizing: true;
 
 // Set the default font family here so you don't have to override it later
-$normalized_font_family: sans-serif !default;
+$default_font_family: sans-serif;
+$default_monospaece: monospace, serif;
 
-$normalize_headings: true !default;
+// Set this to false if headings are initalized somewhere else
+$normalize_headings: true;
 
-$h1_font_size: 2em !default;
-$h2_font_size: 1.5em !default;
-$h3_font_size: 1.17em !default;
-$h4_font_size: 1em !default;
-$h5_font_size: 0.83em !default;
-$h6_font_size: 0.75em !default;
+// Set this to false to disable the rem sizing
+$rem_sizing: true;
 
-$h1_margin: 0.67em 0 !default;
-$h2_margin: 0.83em 0 !default;
-$h3_margin: 1em 0 !default;
-$h4_margin: 1.33em 0 !default;
-$h5_margin: 1.67em 0 !default;
-$h6_margin: 2.33em 0 !default;    
 
-$background: #fff !default;    
-$color: #000 !default;    
+// If you are using em or px you must specify Example( 2em or 15px)
+// If you are using rem leave the rem off this will be added using the font-size mixin
+$h1_font_size: 2.0;
+$h2_font_size: 1.5;
+$h3_font_size: 1.17;
+$h4_font_size: 1.0;
+$h5_font_size: 0.83;
+$h6_font_size: 0.75;
 
+
+// Change the rem value to em or px if needed
+$h1_margin: 0.67rem 0;
+$h2_margin: 0.83rem 0;
+$h3_margin: 1rem 0;
+$h4_margin: 1.33rem 0;
+$h5_margin: 1.67rem 0;
+$h6_margin: 2.33rem 0;    
+
+$main_bg: #fff;    
+$main_color: #000;    
+
+// REM support mixin adds pixel fallback for IE 8.
+// Example @include font-size(1.3)
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
 
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
+
+/**
+* Reset the box-sizing if var is set to true
+*/
+
+@if $border_box_sizing == true {
+  *,
+  *:before,
+  *:after {
+    .box-sizing(border-box);
+  }
+}
 
 /**
  * Correct `block` display not defined in IE 8/9.
@@ -97,9 +123,17 @@ template {
  */
 
 html {
-    font-family: sans-serif; /* 1 */
-    -ms-text-size-adjust: 100%; /* 2 */
-    -webkit-text-size-adjust: 100%; /* 2 */
+    font-family: $default_font_family; /* 1 */
+    
+    @if $rem_sizing == true {
+      font-size: 62.5%; /* Sets up the Base 10 stuff */
+      -ms-text-size-adjust: 62.5%; /* 2 */
+      -webkit-text-size-adjust: 62.5%; /* 2 */
+    } else {
+      font-size: 100%; /* Sets up the Base 10 stuff */
+      -ms-text-size-adjust: 100%; /* 2 */
+      -webkit-text-size-adjust: 100%; /* 2 */
+    }
 }
 
 /**
@@ -148,10 +182,74 @@ a:hover {
  * contexts in Firefox 4+, Safari 5, and Chrome.
  */
 
-h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
+@if $normalize_headings == true {
+
+  @if $rem_sizing == true {
+
+    h1 {
+        @include font-size($h1_font_size);
+        margin: $h1_margin;
+    }
+
+    h2 {
+        @include font-size($h2_font_size);
+        margin: $h2_margin;
+    }
+
+    h3 {
+        @include font-size($h3_font_size);
+        margin: $h3_margin;
+    }
+
+    h4 {
+        @include font-size($h4_font_size);
+        margin: $h4_margin;
+    }
+
+    h5 {
+        @include font-size($h5_font_size);
+        margin: $h5_margin;
+    }
+
+    h6 {
+        @include font-size($h6_font_size);
+        margin: $h6_margin;
+    }
+
+  } @else {
+
+    h1 {
+        font-size: $h1_font_size;
+        margin: $h1_margin;
+    }
+
+    h2 {
+        font-size: $h2_font_size;
+        margin: $h2_margin;
+    }
+
+    h3 {
+        font-size: $h3_font_size;
+        margin: $h3_margin;
+    }
+
+    h4 {
+        font-size: $h4_font_size;
+        margin: $h4_margin;
+    }
+
+    h5 {
+        font-size: $h5_font_size;
+        margin: $h5_margin;
+    }
+
+    h6 {
+        font-size: $h6_font_size;
+        margin: $h6_margin;
+    }
+  }
 }
+
 
 /**
  * Address styling not present in IE 8/9, Safari 5, and Chrome.
@@ -205,7 +303,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: monospace, serif;
+    font-family: $default_monospaece;
     font-size: 1em;
 }
 
@@ -245,12 +343,23 @@ sup {
     vertical-align: baseline;
 }
 
-sup {
-    top: -0.5em;
-}
+@if rem_sizing ==true {
+  sup {
+      top: -0.5rem;
+  }
 
-sub {
-    bottom: -0.25em;
+  sub {
+      bottom: -0.25rem;
+  }
+
+} else {
+  sup {
+      top: -0.5em;
+  }
+
+  sub {
+      bottom: -0.25em;
+  }
 }
 
 /* ==========================================================================

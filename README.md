@@ -1,21 +1,20 @@
-# normalize.css v2
+# normalize.scss v2
 
-Normalize.css is a customisable CSS file that makes browsers render all
+Normalize.scss is a customisable SCSS file that makes browsers render all
 elements more consistently and in line with modern standards.
 
 The project relies on researching the differences between default browser
 styles in order to precisely target only the styles that need or benefit from
 normalizing.
 
-[Check out the demo](http://necolas.github.io/normalize.css/latest/test.html)
+## What is added to the SCSS version
 
-## Install
+	* Default border box sizing is set to true, but can be disabled
+	* Easily add default font family into Normalize.scss
+	* Choose to enable rem unit sizing if you would rather use rem than em. 
+	* Heading sizes and margins can be changed easily use scss variables
+	* Change default background color and text color
 
-Download from the [project page](http://necolas.github.io/normalize.css/).
-
-Install with [Bower](http://bower.io/): `bower install --save normalize-css`
-
-Install with [Component(1)](http://component.io/): `component install necolas/normalize.css`
 
 ## What does it do?
 
@@ -25,12 +24,6 @@ Install with [Component(1)](http://component.io/): `component install necolas/no
 * Improves usability with subtle improvements.
 * Explains what code does using detailed comments.
 
-## How to use it
-
-No other styles should come before Normalize.css.
-
-It is recommended that you include the `normalize.css` file as untouched
-library code.
 
 ## Browser support
 
@@ -40,15 +33,8 @@ library code.
 * Opera 12+
 * Internet Explorer 8+
 
-[Normalize.css v1 provides legacy browser
-support](https://github.com/necolas/normalize.css/tree/v1) (IE 6+, Safari 4+),
-but is no longer actively developed.
-
-## Contributing
-
-Please read the CONTRIBUTING.md
 
 ## Acknowledgements
 
-Normalize.css is a project by [Nicolas Gallagher](https://github.com/necolas),
-co-created with [Jonathan Neal](https://github.com/jonathantneal).
+This project is based on the work done by: [Nicolas Gallagher](https://github.com/necolas),
+and [Jonathan Neal](https://github.com/jonathantneal).
